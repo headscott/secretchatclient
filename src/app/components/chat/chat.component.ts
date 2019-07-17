@@ -61,7 +61,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           // Hole entgangene Nachrichten, falls notwendig. Alles, was nach dem timestamp der letzten Nachricht liegt
           if(this.nachrichten.length) {
             this.nachrichtenService.getNachrichten(this.nachrichten[this.nachrichten.length-1].timestamp).subscribe((nachrichten: any) => {
-              this.nachrichten = [...this.nachrichten, nachrichten];
+              if(nachrichten.length)
+                this.nachrichten = [...this.nachrichten, ...nachrichten];
             });
           }
 
