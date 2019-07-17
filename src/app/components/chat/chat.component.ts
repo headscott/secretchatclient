@@ -20,6 +20,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   eigenefarbe: string = "red";
   nachricht: string = "";
 
+  heartbeat: number = 0;
+
   socket: Subject<any>;
 
   @ViewChild('chatfenster', {read: ElementRef, static: false}) chatFensterRef: ElementRef;
@@ -49,8 +51,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             console.log("FEHLER IM WEBSOCKET");
           }, () => {
             console.log("WEBSOCKET WURDE GESCHLOSSEN");
-            setTimeout(() => this.socket = this.websocketService.createWebsocket(), 5000);
+            window.setTimeout(() => this.socket = this.websocketService.createWebsocket(), 1000);
           });
+
+          if(this.heartbeat)
+            window.clearInterval(this.heartbeat);
+          this.heartbeat = window.setInterval(() => this.socket.next({command: "heartbeat", payload: 0}), 30000);
 
        })
 
