@@ -43,6 +43,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
            command: "login",
            payload: this.eigeneruser
          })
+
           this.socket.subscribe(message => {
             let msg = JSON.parse(message.data);
             console.dir(msg);

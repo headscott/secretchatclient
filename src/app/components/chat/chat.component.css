@@ -39,6 +39,21 @@
    line-height: 0.92em;
 }
 
+.systemnachricht {
+  margin: 0 auto 10px auto;
+  background-color: #8fcbf3;
+  padding: 2px 2px 10px 2px;
+  border-radius: 5px;
+  clear: both;
+  text-align: center;
+  line-height: 0.92em;
+  position: relative;
+  top: 10px;
+  display: block;
+  max-width: 70vw;
+  font-size: 0.8em;
+}
+
 textarea {
   line-height: 0.92em;
 }
