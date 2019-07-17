@@ -58,6 +58,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             window.clearInterval(this.heartbeat);
           this.heartbeat = window.setInterval(() => this.socket.next({command: "heartbeat", payload: 0}), 30000);
 
+          // Hole entgangene Nachrichten, falls notwendig. Alles, was nach dem timestamp der letzten Nachricht liegt
+          if(this.nachrichten.length) {
+            this.nachrichtenService.getNachrichten(this.nachrichten[this.nachrichten.length-1].timestamp).subscribe((nachrichten: any) => {
+              this.nachrichten = [...this.nachrichten, nachrichten];
+            });
+          }
+
        })
 
       this.nachrichtenService.getNachrichten(this.userService.getUser().timestamp).subscribe((nachrichten: any) => {
