@@ -41,13 +41,18 @@ export class ChatComponent implements OnInit, AfterViewChecked {
            command: "login",
            payload: this.eigeneruser
          })
-       })
+          this.socket.subscribe(message => {
+            let msg = JSON.parse(message.data);
+            console.dir(msg);
+            this.nachrichten.push(msg.payload);
+          }, error => {
+            console.log("FEHLER IM WEBSOCKET");
+          }, () => {
+            console.log("WEBSOCKET WURDE GESCHLOSSEN");
+            setTimeout(() => this.socket = this.websocketService.createWebsocket(), 5000);
+          });
 
-      this.socket.subscribe(message => {
-        let msg = JSON.parse(message.data);
-        console.dir(msg);
-        this.nachrichten.push(msg.payload);
-      });
+       })
 
       this.nachrichtenService.getNachrichten(this.userService.getUser().timestamp).subscribe((nachrichten: any) => {
         this.nachrichten = nachrichten;
