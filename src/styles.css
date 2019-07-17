@@ -8,6 +8,6 @@ body {
    background-color: #dddddd;
   background-image: url("assets/images/logo.png");
   background-position: 50% 50%;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   height: 70vh;
 }

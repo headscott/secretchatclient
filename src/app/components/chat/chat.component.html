@@ -1,0 +1,11 @@
+<div class="buchstabensalat">
+   <div class="ausgabe" #chatfenster>
+      <div [ngClass]="nachricht.username == eigeneruser ? 'meintext' : 'anderertext'" *ngFor="let nachricht of nachrichten">
+         <p class="username" [style.color]="nachricht.color" *ngIf="nachricht.username != eigeneruser">{{nachricht.username}}</p>
+         {{nachricht.nachricht}}
+         <p class="time">{{ nachricht.timestamp | date:'short'}}</p>
+      </div>
+   </div>
+   <div class="col-xs-10"><textarea class="col-xs-12" rows="5" placeholder="Nachricht" [(ngModel)]="nachricht"></textarea></div>
+   <div class="col-xs-1"><i (click)="sendMessage()" class="fas fa-arrow-alt-circle-right"></i></div>
+</div>

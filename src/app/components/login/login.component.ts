@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +11,16 @@ export class LoginComponent implements OnInit {
 
   passwort = "";
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    console.log(this.passwort);
+    this.userService.login(this.passwort).subscribe((data: any) => {
+      this.userService.loginSuccessful(data);
+      this.router.navigate(['/chat']);
+    });
   }
 
 }

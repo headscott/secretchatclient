@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  server: "https://oursecretchat.herokuapp.com",
+  wsserver: "wss://oursecretchat.herokuapp.com"
 };
