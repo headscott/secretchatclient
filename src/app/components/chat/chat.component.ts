@@ -18,6 +18,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   eigeneruser: string = "";
   eigenefarbe: string = "red";
+  token: string = "";
   nachricht: string = "";
 
   heartbeat: number = 0;
@@ -34,6 +35,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
      } else {
        this.eigeneruser = this.userService.getUser().username;
        this.eigenefarbe = this.userService.getUser().favcolor;
+       this.token = this.userService.getUser().token;
 
        this.socket = this.websocketService.createWebsocket();
 
@@ -61,7 +63,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
           // Hole entgangene Nachrichten, falls notwendig. Alles, was nach dem timestamp der letzten Nachricht liegt
           if(this.nachrichten.length) {
-            this.nachrichtenService.getNachrichten(this.nachrichten[this.nachrichten.length-1].timestamp).subscribe((nachrichten: any) => {
+            this.nachrichtenService.getNachrichten(this.token, this.nachrichten[this.nachrichten.length-1].timestamp).subscribe((nachrichten: any) => {
               if(nachrichten.length)
                 this.nachrichten = [...this.nachrichten, ...nachrichten];
             });
@@ -69,7 +71,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
        })
 
-      this.nachrichtenService.getNachrichten(this.userService.getUser().timestamp).subscribe((nachrichten: any) => {
+      this.nachrichtenService.getNachrichten(this.token, this.userService.getUser().timestamp).subscribe((nachrichten: any) => {
         this.nachrichten = nachrichten;
       });
 
