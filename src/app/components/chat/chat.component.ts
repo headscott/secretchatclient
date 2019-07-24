@@ -66,6 +66,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             this.nachrichtenService.getNachrichten(this.token, this.nachrichten[this.nachrichten.length-1].timestamp).subscribe((nachrichten: any) => {
               if(nachrichten.length)
                 this.nachrichten = [...this.nachrichten, ...nachrichten];
+            }, (err) => {
+              if(err)
+                this.router.navigate(['/login']);
             });
           }
 
@@ -73,6 +76,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
       this.nachrichtenService.getNachrichten(this.token, this.userService.getUser().timestamp).subscribe((nachrichten: any) => {
         this.nachrichten = nachrichten;
+      }, (err) => {
+        if(err)
+          this.router.navigate(['/login']);
       });
 
      }
